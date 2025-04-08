@@ -1,0 +1,28 @@
+networks:
+  dev:
+
+services:
+ nginx:
+  image: nginx:stable-apline
+  ports:
+   -"80:80"
+  volumes:
+    -'./nginx.conf:/etc/nginxnginx.conf'
+  depends_on:
+    - backend
+    - frontend
+  networks:
+    - dev
+
+backend:
+  build:
+    context: ./OsteackCRM
+  networks:
+    - dev
+
+frontend:
+  build:
+    context: ./OsteackCRM.FE
+  networks:
+    - dev
+
